@@ -83,7 +83,11 @@ class Settings(BaseSettings):
 
     openai_api_key: str | None = None
 
-    llm_model: str | None = None
+    llm_model: str = "gpt-4o"
+
+    llm_base_url: str = "https://api.openai.com/v1"  # Sets default if not in .env
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 
     # =========================================================

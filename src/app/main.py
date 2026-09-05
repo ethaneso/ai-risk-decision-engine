@@ -1,4 +1,7 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+
+from src.app.rag_service import RAGService
 
 app = FastAPI(
     title="AI Risk Decision Engine",
@@ -6,16 +9,25 @@ app = FastAPI(
 )
 
 
-@app.get("/")
-def root():
-    return {
-        "name": "AI Risk Decision Engine",
-        "status": "running",
-    }
+rag = RAGService()
+
+
+class QueryRequest(BaseModel):
+    question: str
 
 
 @app.get("/health")
 def health():
     return {
-        "status": "healthy",
+        "status": "ok"
     }
+
+
+@app.post("/query")
+def query(
+    request: QueryRequest
+):
+
+    return rag.answer(
+        request.question
+    )
