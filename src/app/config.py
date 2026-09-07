@@ -41,9 +41,10 @@ class Settings(BaseSettings):
     # Embedding Model
     # =========================================================
 
-    embedding_model: str = (
-        "sentence-transformers/all-MiniLM-L6-v2"
-    )
+    #embedding_model: str = (
+    #    "sentence-transformers/all-MiniLM-L6-v2"
+    #)
+    embedding_model: str = "/code/models/all-MiniLM-L6-v2"
 
     embedding_dimension: int = 384
 

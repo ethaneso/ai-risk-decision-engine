@@ -4,25 +4,39 @@ services:
     container_name: ai-risk-postgres
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER:-airisk}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-airisk_dev_password}
+      POSTGRES_DB: ${DB_NAME:-airisk}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - risk-network
 
-#  qdrant:
-#    image: qdrant/qdrant:latest
-#    container_name: ai-risk-qdrant
-#    restart: unless-stopped
-#    ports:
-#      - "6333:6333"
-#      - "6334:6334"
-#    volumes:
-#      - qdrant_data:/qdrant/storage
+  api:
+    build: .
+    image: risk-engine-api:v1
+    container_name: great_mahavira
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    env_file:
+    - .env
+    environment:
+      DATABASE_URL: postgresql://${DB_USER:-airisk}:${DB_PASSWORD:-airisk_dev_password}@postgres:5432/${DB_NAME:-airisk}
+      EMBEDDING_MODEL: /code/models/all-MiniLM-L6-v2
+    volumes:
+      - ./documents:/code/documents
+      - ./models:/code/models:ro
+    depends_on:
+      - postgres
+    networks:
+      - risk-network
 
-# One single, unified storage definition for the entire project
+networks:
+  risk-network:
+    driver: bridge
+
 volumes:
   postgres_data:
-#  qdrant_data:

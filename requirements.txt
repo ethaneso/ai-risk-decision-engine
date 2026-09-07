@@ -1,12 +1,46 @@
+# Web Framework & Server
+fastapi==0.141.1
+uvicorn==0.52.4
+starlette==1.6.0
+httptools==0.8.0
+uvloop==0.22.1
+
+# Environment & Settings
+pydantic==2.13.4
+pydantic-settings==2.15.0
+pydantic_core==2.46.4
+python-dotenv==1.2.3
 annotated-types==0.8.0
-anyio==4.14.2
-certifi==2026.7.22
-h11==0.16.0
-httpcore==1.0.9
-httpx==0.28.1
-idna==3.19
-ollama==0.6.2
-pydantic==2.13.5
-pydantic_core==2.46.5
-typing-inspection==0.4.4
 typing_extensions==4.16.0
+typing-inspection==0.4.4
+
+# Database & Vector Store
+SQLAlchemy==2.0.52
+psycopg==3.3.4
+psycopg-binary==3.3.4
+pgvector==0.5.0
+qdrant-client==1.19.0
+
+# LLM & Machine Learning Core
+ollama==0.6.2
+openai==3.5.0
+sentence-transformers==6.0.1
+transformers==5.16.1
+safetensors==0.8.0
+tokenizers==0.23.1
+huggingface_hub==1.29.0
+torch==2.13.0
+numpy==2.5.2
+scikit-learn==1.9.0
+scipy==1.18.1
+
+# Document Processing & Utilities
+pypdf==6.16.2
+pymupdf==1.28.2
+httpx==0.28.1
+requests==2.34.2
+PyYAML==6.0.3
+rich==15.0.0
+typer==0.27.2
+python-dateutil==2.9.0.post0
+tzdata==2026.3

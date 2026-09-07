@@ -1,0 +1,25 @@
+# Python bytecode & caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# Git & IDEs
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Development artifacts & Notebooks
+notebooks/
+research/
+evaluation/
+*.log
+documents/
+tests/
