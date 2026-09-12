@@ -1,4 +1,13 @@
 import sys
+from pathlib import Path
+
+
+# Allow this file to be executed directly (``python scripts/ingest.py``).
+# In that mode Python adds ``scripts/`` to sys.path, but not the project root
+# that contains the top-level ``src`` package.
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.app.ingestion.indexer import Indexer
 
