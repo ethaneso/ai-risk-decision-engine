@@ -63,19 +63,14 @@ class Settings(BaseSettings):
 
 
     # =========================================================
-    # LLM
+    # Ollama / Local LLM
     # =========================================================
 
     llm_provider: str = "ollama"
 
+    ollama_base_url: str = "http://host.lima.internal:11434"
 
-    # =========================================================
-    # Ollama / Local LLM
-    # =========================================================
-
-    ollama_base_url: str = "http://localhost:11434"
-
-    ollama_model: str = "llama3.1:8b"
+    ollama_model: str = "llama3.2:3b"
 
 
     # =========================================================

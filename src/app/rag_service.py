@@ -1,6 +1,7 @@
 from src.app.retrieval.pipeline import RetrievalPipeline
 from src.app.generation.prompt import build_context
 from src.app.generation.generator import Generator
+from src.app.config import settings
 
 
 class RAGService:
@@ -12,8 +13,21 @@ class RAGService:
 
     def answer(
         self,
-        question: str
+        question: str,
+        mode: str | None = None,
+        model: str | None = None,
     ):
+        if mode is None:
+            provider_modes = {
+                "ollama": "offline",
+                "openai": "online",
+            }
+            try:
+                mode = provider_modes[settings.llm_provider.lower()]
+            except KeyError as exc:
+                raise ValueError(
+                    "LLM_PROVIDER must be either 'ollama' or 'openai'"
+                ) from exc
 
         results = self.retrieval.retrieve(
             question,
@@ -25,9 +39,11 @@ class RAGService:
             results
         )
 
-        answer = self.generator.generate(
+        generation = self.generator.generate(
             question,
-            context
+            context,
+            mode=mode,
+            model=model,
         )
 
         sources = [
@@ -41,6 +57,9 @@ class RAGService:
         ]
 
         return {
-            "answer": answer,
-            "sources": sources
+            "answer": generation["answer"],
+            "mode": mode,
+            "provider": generation["provider"],
+            "model": generation["model"],
+            "sources": sources,
         }

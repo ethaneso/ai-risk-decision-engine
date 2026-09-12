@@ -26,6 +26,9 @@ services:
     environment:
       DATABASE_URL: postgresql://${DB_USER:-airisk}:${DB_PASSWORD:-airisk_dev_password}@postgres:5432/${DB_NAME:-airisk}
       EMBEDDING_MODEL: /code/models/all-MiniLM-L6-v2
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_BASE_URL: ${OLLAMA_DOCKER_BASE_URL:-http://host.lima.internal:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:3b}
     volumes:
       - ./documents:/code/documents
       - ./models:/code/models:ro

@@ -1,3 +1,5 @@
+from typing import Literal
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 
@@ -14,6 +16,8 @@ rag = RAGService()
 
 class QueryRequest(BaseModel):
     question: str
+    mode: Literal["offline", "online"] | None = None
+    model: str | None = None
 
 
 @app.get("/health")
@@ -29,5 +33,7 @@ def query(
 ):
 
     return rag.answer(
-        request.question
+        request.question,
+        mode=request.mode,
+        model=request.model,
     )
