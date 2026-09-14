@@ -24,16 +24,19 @@ class Retriever:
                 cur.execute(
                     """
                     SELECT
-                        id,
-                        document_id,
-                        content,
-                        page_number,
+                        chunks.id,
+                        chunks.document_id,
+                        chunks.content,
+                        chunks.page_number,
+                        documents.filename,
                         1 - (
-                            embedding <=> %s::vector
+                            chunks.embedding <=> %s::vector
                         ) AS similarity
                     FROM chunks
+                    JOIN documents
+                      ON documents.id = chunks.document_id
                     ORDER BY
-                        embedding <=> %s::vector
+                        chunks.embedding <=> %s::vector
                     LIMIT %s
                     """,
                     (
@@ -51,7 +54,8 @@ class Retriever:
                 "document_id": str(row[1]),
                 "content": row[2],
                 "page_number": row[3],
-                "similarity": float(row[4])
+                "source": row[4],
+                "similarity": float(row[5])
             }
             for row in rows
         ]

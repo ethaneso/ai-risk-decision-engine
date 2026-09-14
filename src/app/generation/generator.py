@@ -1,7 +1,7 @@
 from openai import OpenAI
 
 from src.app.config import settings
-from src.services.llm.ollama_client import OllamaClient
+from src.app.services.llm.ollama_client import OllamaClient
 
 
 class Generator:
