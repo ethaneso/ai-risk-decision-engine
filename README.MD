@@ -229,51 +229,118 @@ The architecture is intentionally modular so that individual components can be e
 ```text
 ai-risk-decision-engine/
 │
-├── src/
-│   └── app/
-│       ├── main.py
-│       ├── config.py
-│       │
-│       ├── api/
-│       ├── models/
-│       ├── schemas/
-│       │
-│       ├── services/
-│       │   ├── llm/
-│       │   ├── rag/
-│       │   ├── risk/
-│       │   └── governance/
-│       │
-│       ├── agents/
-│       ├── security/
-│       ├── governance/
-│       ├── risk/
-│       └── database/
-│
-├── documents/
-│   ├── raw/
-│   ├── processed/
-│   └── indexed/
-│
-├── data/
-├── evaluation/
-├── research/
-├── notebooks/
-├── scripts/
-├── tests/
-│
-├── docs/
-│   └── architecture/
-│       └── system-overview.md
-│
-├── threat-model/
-├── docker/
-│
 ├── docker-compose.yml
+├── Dockerfile
+├── docs
+│   └── System Overview.md
+├── documents
+│   ├── indexed
+│   ├── Megtech_cyberseucirty_incident_handling_policy.pdf
+│   ├── processed
+│   └── raw
+│       ├── Access Control Policy.pdf
+│       ├── Application Security Development Policy.pdf
+│       └── Information Security Management System (ISMS) Manual.pdf
+├── evaluation
+│   ├── evaluate_retrieval.py
+│   └── questions.json
+├── governance
+├── LICENSE
+├── models
+│   ├── all-MiniLM-L6-v2
+│   │   ├── 1_Pooling
+│   │   │   └── config.json
+│   │   ├── 2_Normalize
+│   │   │   └── config.json
+│   │   ├── config_sentence_transformers.json
+│   │   ├── config.json
+│   │   ├── model.safetensors
+│   │   ├── modules.json
+│   │   ├── README.md
+│   │   ├── sentence_bert_config.json
+│   │   ├── tokenizer_config.json
+│   │   └── tokenizer.json
+│   └── ms-marco-MiniLM-L-6-v2
+│       ├── config_sentence_transformers.json
+│       ├── config.json
+│       ├── model.safetensors
+│       ├── modules.json
+│       ├── README.md
+│       ├── sentence_bert_config.json
+│       ├── tokenizer_config.json
+│       └── tokenizer.json
+├── notebooks
+│   ├── test_parser.ipynb
+│   └── Untitled.ipynb
 ├── pyproject.toml
-├── .env.example
-├── .gitignore
-└── README.md
+├── README.MD
+├── requirements-dev.txt
+├── requirements.txt
+├── research
+├── scripts
+│   ├── download_model.py
+│   ├── download_reranker.py
+│   ├── ignore_test_qdrant.py
+│   ├── ingest.py
+│   ├── search.py
+│   └── test_local_llm.py
+├── src
+│   └── app
+│       ├── __init__.py
+│       ├── agents
+│       │   ├── graph.py
+│       │   ├── nodes
+│       │   │   ├── finalizer.py
+│       │   │   ├── reasoner.py
+│       │   │   └── tool_results.py
+│       │   ├── state.py
+│       │   └── tools
+│       │       ├── __init__.py
+│       │       ├── calculator.py
+│       │       ├── database.py
+│       │       └── search.py
+│       ├── api
+│       │   └── routers
+│       │       └── risk.py
+│       ├── config.py
+│       ├── database
+│       │   ├── __init__.py
+│       │   ├── connection.py
+│       │   └── repositories
+│       │       └── risk_assessments.py
+│       ├── generation
+│       │   ├── generator.py
+│       │   └── prompt.py
+│       ├── ingestion
+│       │   ├── chunker.py
+│       │   ├── cleaner.py
+│       │   ├── indexer.py
+│       │   ├── parser.py
+│       │   └── schema.sql
+│       ├── main.py
+│       ├── models
+│       ├── rag_service.py
+│       ├── retrieval
+│       │   ├── database.py
+│       │   ├── embedder.py
+│       │   ├── pipeline.py
+│       │   ├── reranker.py
+│       │   └── search.py
+│       ├── risk
+│       │   └── scoring.py
+│       ├── schemas
+│       │   └── risk_agent.py
+│       └── services
+│           └── llm
+│               ├── factory.py
+│               └── ollama_client.py
+├── tests
+│   ├── test_api.py
+│   ├── test_chunker.py
+│   ├── test_cleaner.py
+│   └── test_generator_routing.py
+└── threat-model
+
 ```
 
 ---
@@ -364,7 +431,9 @@ docker compose ps
 
 ## Run the API
 
+The API should then be available through the configured local development endpoint.
 
+FastAPI's interactive API documentation can be used to inspect and test available endpoints.
 
 # Testing
 
@@ -559,9 +628,9 @@ Features should only be marked as complete when implemented and tested.
 [*] Embedding pipeline
 [*] Vector search
 [*] RAG query pipeline
-[ ] Reranking
-[ ] LLM integration
-[ ] Risk assessment engine
+[*] Reranking
+[*] LLM integration
+[*] Risk assessment engine
 [ ] Governance analysis
 [ ] Agent orchestration
 [ ] Evidence traceability
