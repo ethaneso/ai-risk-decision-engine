@@ -206,7 +206,7 @@ Recommended Action
 
 | Component             | Technology                         |
 | --------------------- | ---------------------------------- |
-| Language              | Python                             |
+| Language              | Python 3.12                        |
 | API                   | FastAPI                            |
 | Database              | PostgreSQL                         |
 | Vector Search         | pgvector                           |
@@ -368,7 +368,7 @@ The README provides the high-level view; the architecture documents contain the 
 
 The development environment requires:
 
-* Python 3.x
+* Python 3.12
 * Git
 * Docker
 * Docker Compose
@@ -389,15 +389,18 @@ cd ai-risk-decision-engine
 ## Create Python Environment
 
 ```bash
-python3 -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate
 ```
 
 Install dependencies:
 
 ```bash
-pip install -e .
+python -m pip install --upgrade pip
+pip install -r requirements-dev.txt
 ```
+
+Use the `python3.12` binary when creating the virtual environment. `requirements-dev.txt` installs the pinned runtime dependencies and refuses any Python other than 3.12.
 
 ---
 
